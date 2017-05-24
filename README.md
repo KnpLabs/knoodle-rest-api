@@ -12,11 +12,11 @@ In order to make this works you should ensure that you have on your system:
 
 ## Installation
 
-1 - Clone this project: `git clone git@github.com:KnpLabs/knoodle-rest-api.git && cd knoodle-rest-api`
-2 - Install the dependencoes: `npm install`
-3 - You can optionaly load fixtures: `npm run fixtures`
-3 - Start the server: `npm start`
-4 - Enjoy your API on `http://localhost:3333`
+1. Clone this project: `git clone git@github.com:KnpLabs/knoodle-rest-api.git && cd knoodle-rest-api`
+2. Install the dependencoes: `npm install`
+3. You can optionaly load fixtures: `npm run fixtures`
+3. Start the server: `npm start`
+4. Enjoy your API on `http://localhost:3333`
 
 ## API Documentation
 
@@ -30,5 +30,5 @@ inside a swagger editor).
 
 ## Run the tests
 
-1 - Run a test server: `API_PORT=8888 MONGO_DSN=mongodb://localhost/knoodle-test npm start`
-2 - Run your test on the api: `API_BASE_URL=http://localhost:8888 MONGO_DSN=mongodb://localhost/knoodle-test npm test`
+1. Run a test server: `API_PORT=8888 MONGO_DSN=mongodb://localhost/knoodle-test npm start`
+2. Run your test on the api: `API_BASE_URL=http://localhost:8888 MONGO_DSN=mongodb://localhost/knoodle-test npm test`
