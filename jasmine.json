@@ -1,0 +1,11 @@
+{
+  "spec_dir": "features",
+  "spec_files": [
+    "**/*[fF]eature.js"
+  ],
+  "helpers": [
+    "config/**/*.js"
+  ],
+  "stopSpecOnExpectationFailure": false,
+  "random": false
+}

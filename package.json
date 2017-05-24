@@ -1,0 +1,29 @@
+{
+  "name": "knoodle-rest-api",
+  "version": "1.0.0",
+  "description": "A REST Api for the knoodle react training :)",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon -w src src/index.js",
+    "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine"
+  },
+  "author": "KNP Labs <hello@knplabs.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "colors": "^1.1.2",
+    "express": "^4.15.3",
+    "joi": "^10.5.0",
+    "mixin-deep": "^1.2.0",
+    "mongoose": "^4.10.2"
+  },
+  "devDependencies": {
+    "axios": "^0.16.1",
+    "debug": "^2.6.8",
+    "faker": "^4.1.0",
+    "jasmine": "^2.6.0",
+    "jasmine-spec-reporter": "^4.1.0",
+    "nodemon": "^1.11.0",
+    "querystring": "^0.2.0"
+  }
+}
