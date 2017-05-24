@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+require('colors');
+
+const loadFixtures = require('./../src/fixtures/load');
+const mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGO_DSN || 'mongodb://localhost/knoodle');
+
+console.log('Loading fixtures ...'.grey.bold);
+
+loadFixtures().then(s => console.log('done'.green.bold) || process.exit(0)).catch(console.error);

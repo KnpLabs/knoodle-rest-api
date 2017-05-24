@@ -8,7 +8,6 @@ module.exports = function cleanAndLoadFixtures() {
         .then(d => {
             return Answer.remove({});
         })
-        .catch(e => console.error(e))
         .then(d => {
             let promises = [];
 
@@ -18,5 +17,6 @@ module.exports = function cleanAndLoadFixtures() {
 
             return Promise.all(promises);
         })
+        .catch(e => console.error(e))
     ;
 };

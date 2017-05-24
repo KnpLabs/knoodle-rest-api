@@ -1,0 +1,298 @@
+swagger: "2.0"
+info:
+  description: "Knoodle api documentation. Knoodle, In Survey We Trust!"
+  version: "1.0.0"
+  title: "Knoodle API: In Survey We Trust"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "hello@knplabs.com"
+schemes:
+  - "http"
+paths:
+  /surveys:
+    get:
+      summary: "Retrieve latest surveys"
+      description: "Get the last surveys on Knoodle"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "name"
+          description: "Filter by survey name"
+          required: false
+          type: "string"
+        - in: "query"
+          name: "author"
+          description: "Filter by survey author (email or name both works)"
+          required: false
+          type: "string"
+        - in: "query"
+          name: "question"
+          description: "Filter by questions label"
+          required: false
+          type: "string"
+      responses:
+        200:
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Survey"
+        204:
+          description: "When no survey is actually present in knoodle"
+    post:
+      summary: "Add a new survey to knoodle"
+      description: "Create our own survey"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "A survey object that will be added to knoodle"
+        required: true
+        schema:
+          $ref: "#/definitions/NewSurvey"
+      responses:
+        400:
+          description: "Invalid survey"
+          schema:
+            $ref: "#/definitions/ValidationError"
+        201:
+          schema:
+            $ref: "#/definitions/Survey"
+  /surveys/{surveyId}:
+    get:
+      summary: "Retrieve ne survey"
+      description: "Get the survey that you need"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "surveyId"
+          in: "path"
+          description: "The survey identifier"
+          required: true
+          type: "string"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/Survey"
+        404:
+          description: "When no survey has been found for the identifier"
+    patch:
+      summmary: "Edit an existing survey"
+      description: "Change your survey to fit your need"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/json"
+      parameters:
+        - name: "surveyId"
+          in: "path"
+          description: "The survey identifier"
+          required: true
+          type: "string"
+        - name: "body"
+          in: "body"
+          description: "Your survey modification"
+          required: true
+          schema:
+            $ref: "#/definitions/EditSurvey"
+      responses:
+        200:
+          schema:
+            $ref: "#/definitions/Survey"
+        400:
+          description: "When something wrong happens"
+          schema:
+            $ref: "#/definitions/ValidationError"
+        404:
+          description: "When no survey has been found for the identifier"
+  /surveys/{surveyId}/answers:
+    get:
+      summary: "Retrieve the answsers for a survey"
+      description: "Get all the answers of your knoodle survey"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "surveyId"
+          in: "path"
+          description: "The survey identifier"
+          required: true
+          type: "string"
+        - name: "user"
+          in: "query"
+          required: false
+          description: "Filter by survey author (name or email, both works)"
+          type: "string"
+      responses:
+        200:
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Answer"
+        204:
+          description: "When no answers exists yet"
+        404:
+          description: "When no survey has been found for the identifier"
+    post:
+      summary: "Answer a survey"
+      description: "Submit your survey answer"
+      produces:
+        - "application/json"
+      consumes:
+        - "application/json"
+      parameters:
+        - name: "surveyId"
+          in: "path"
+          description: "The survey identifier"
+          required: true
+          type: "string"
+        - name: "body"
+          in: "body"
+          required: true
+          description: "The answer"
+          schema:
+            $ref: "#/definitions/NewAnswer"
+      responses:
+        201:
+          schema:
+            $ref: "#/definition/Answer"
+        400:
+          description: "When something wrong happen"
+          schema:
+            $ref: "#/definition/ValidationError"
+        404:
+          description: "When no survey has been found for the identifier"
+definitions:
+  Survey:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        description: "The unique identifier of this survey"
+      name:
+        type: "string"
+      author:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+          name:
+            type: "string"
+      questions:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            title:
+              type: "string"
+            answers:
+              type: "array"
+              items:
+                type: "string"
+  NewSurvey:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      author:
+        type: "object"
+        properties:
+          email:
+            type: "string"
+          name:
+            type: "string"
+      questions:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            title:
+              type: "string"
+            answers:
+              type: "array"
+              items:
+                type: "string"
+  ValidationEror:
+    type: "object"
+  EditSurvey:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        required: false
+      author:
+        type: "object"
+        required: false
+        properties:
+          email:
+            type: "string"
+          name:
+            type: "string"
+      questions:
+        type: "array"
+        required: false
+        items:
+          type: "object"
+          properties:
+            title:
+              type: "string"
+            answers:
+              type: "array"
+              items:
+                type: "string"
+  Answer:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+      survey:
+        type: "string"
+        description: "The survey identifier reference"
+      user:
+        type: "object"
+        required: false
+        properties:
+          email:
+            type: "string"
+          name:
+            type: "string"
+      answers:
+        type: "array"
+        required: false
+        items:
+          type: "object"
+          properties:
+            question:
+              type: "number"
+              description: "The question index"
+            choice:
+              type: "number"
+              description: "The answer index"
+  NewAnswer:
+    type: "object"
+    properties:
+      user:
+        type: "object"
+        required: true
+        properties:
+          email:
+            type: "string"
+          name:
+            type: "string"
+      answers:
+        type: "array"
+        required: true
+        items:
+          type: "object"
+          properties:
+            question:
+              type: "number"
+              description: "The question index"
+            choice:
+              type: "number"
+              description: "The answer index"
+externalDocs:
+  description: "Find more about knoodle :)"
+  url: "http://github.com/KnpLabs/knoodle-rest-api"

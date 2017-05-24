@@ -14,11 +14,7 @@ describe('The helpers of knoodle test suit', () => {
             expect(surveys[0]).toBeDefined();
 
             next();
-        }).catch(e => {
-            console.error(e);
-
-            next(e);
-        })
+        }).catch(e => console.error(e) || expect(e).not.toBeDefined() || next(e));
     });
 
     it('can use the api', (next) => {
@@ -29,6 +25,6 @@ describe('The helpers of knoodle test suit', () => {
             expect(surveys[0].name).toContain('Javascript');
 
             next();
-        }).catch(e => next(e));
+        }).catch(e => console.error(e) || expect(e).not.toBeDefined() || next(e));
     });
 });

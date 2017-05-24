@@ -8,25 +8,27 @@ module.exports = function getAnswers(request, response, next) {
         .exec()
         .then(survey => {
             let filters = createFilter(request.query);
+            filters.survey = survey.id;
 
             Answer
-                .find({survey: survey.id})
-                .filter(filters)
-                .limit(filters.limit)
-                .skip(filters.skip)
+                .find(filters)
+                .limit(parseInt(request.query.limit) || 25)
+                .skip((parseInt(request.query.page) - 1) * parseInt(request.query.limit))
                 .exec()
                 .then(answers => {
                     if (!answers || !answers.length) {
-                        reponse.status(204);
+                        response.status(204);
                     }
 
                     response.json(answers);
+
+                    next();
                 })
                 .catch(e => {
-                    response.status(500).json(e);
+                    next(e)
                 })
             ;
         })
-        .catch(e => response.status(404).json())
+        .catch(e => next(e))
     ;
 };

@@ -14,6 +14,7 @@ module.exports = function answerSurvey(request, response, next) {
             }
 
             let data = validate(request.body);
+            data.value.survey = request.params.id;
 
             if (data.error) {
                 response.status(400).json(data.error);
@@ -27,7 +28,7 @@ module.exports = function answerSurvey(request, response, next) {
 
             response.status(200).json(answer);
         })
-        .catch(e => response.status(404).json())
+        .catch(e => next(e))
     ;
 }
 

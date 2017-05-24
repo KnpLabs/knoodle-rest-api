@@ -1,7 +1,7 @@
 require('colors');
 
 const application = require('./application');
-const runningPort = process.env.KNOODLE_PORT || 3333;
+const runningPort = process.env.API_PORT || 3333;
 const mongoose = require('mongoose');
 const mongoDSN = process.env.MONGO_DSN || 'mongodb://localhost/knoodle';
 const debug = require('debug')('knoodle');

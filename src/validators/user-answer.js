@@ -1,6 +1,5 @@
 const joi = require('joi');
 const schema = joi.object().keys({
-    survey: joi.string().required(),
     user: joi.object().keys({
         email: joi.string().email().required(),
         name: joi.string().required(),
@@ -9,8 +8,8 @@ const schema = joi.object().keys({
         name: 'anonymous'
     }),
     answers: joi.array().min(1).items(joi.object().keys({
-        question: joi.number().required(),
-        choice: joi.number().required(),
+        question: joi.number().integer().required(),
+        choice: joi.number().integer().required(),
     })).required(),
 });
 

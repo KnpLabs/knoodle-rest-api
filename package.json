@@ -5,7 +5,10 @@
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon -w src src/index.js",
-    "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine"
+    "start:debug": "nodemon -w src --exec 'DEBUG=* node src/index.js'",
+    "test": "JASMINE_CONFIG_PATH=./jasmine.json jasmine",
+    "test:watch": "nodemon -w features --exec 'npm test'",
+    "fixtures": "bin/fixtures"
   },
   "author": "KNP Labs <hello@knplabs.com>",
   "license": "ISC",
@@ -14,6 +17,7 @@
     "colors": "^1.1.2",
     "express": "^4.15.3",
     "joi": "^10.5.0",
+    "js-yaml": "^3.8.4",
     "mixin-deep": "^1.2.0",
     "mongoose": "^4.10.2"
   },
