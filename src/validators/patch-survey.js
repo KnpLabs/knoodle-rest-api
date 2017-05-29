@@ -1,6 +1,7 @@
 const joi = require('joi');
 const schema = joi.object().keys({
     name: joi.string().min(1),
+    description: joi.string(),
     author: joi.object().keys({
         email: joi.string().email(),
         name: joi.string().min(1),

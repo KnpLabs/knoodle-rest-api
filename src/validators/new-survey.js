@@ -2,6 +2,7 @@ const joi = require('joi');
 
 const schema = joi.object().keys({
     name: joi.string().min(4).required(),
+    description: joi.string().required(),
     author: joi.object().keys({
         email: joi.string().email().required(),
         name: joi.string().min(1).required(),

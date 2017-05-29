@@ -38,6 +38,7 @@ describe('Surveys', () => {
         api
             .post('/surveys', {
                 name: 'Some testing survey',
+                description: 'A simple test',
                 author: {
                     name: 'Michel',
                     email: 'michel@random.com',

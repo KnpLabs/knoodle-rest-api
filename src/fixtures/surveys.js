@@ -4,6 +4,7 @@ const Survey = require('./../models/survey');
 module.exports = function generateFixtures() {
     let surveys = [new Survey({
         name: 'Javascript is amazing, isn\'yt it ?',
+        description: 'Tell us what you think about javascript !',
         questions: [
             {
                 title: 'Do you like ECMA6 ?',
@@ -23,6 +24,7 @@ module.exports = function generateFixtures() {
     for (let i = 0; i < 100; i++) {
         surveys.push(new Survey({
             name: `${faker.lorem.sentence()} ?`,
+            description: `${faker.lorem.sentences()}`,
             questions: Array.prototype.map.call([1, 2, 3], e => {
                 return {
                     title: `${faker.lorem.sentence()} ?`,

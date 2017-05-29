@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const application = express();
 const Survey = require('./models/survey');
@@ -12,6 +13,7 @@ const getOneSurvey = require('./routes/get-one-survey');
 const swagger = require('./routes/swagger');
 const parser = require('body-parser');
 
+application.use(cors());
 application.use(parser.json());
 
 // Retrieve the API documentation:
