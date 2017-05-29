@@ -2,11 +2,11 @@ module.exports = function createSurveyFilters(request) {
     let filters = {};
 
     if (request.query.name) {
-        filters.name = new RegExp(`${request.query.name}`, 'g');
+        filters.name = new RegExp(`${request.query.name}`, 'gi');
     }
 
     if (request.query.author) {
-        let q = new RegExp(request.query.author, 'g');
+        let q = new RegExp(request.query.author, 'gi');
 
         filters['$or'] = [
             {'author.email': q},
@@ -15,7 +15,7 @@ module.exports = function createSurveyFilters(request) {
     }
 
     if (request.query.question) {
-        let q = new RegExp(request.query.question, 'g');
+        let q = new RegExp(request.query.question, 'gi');
 
         filters.questions = {
             '$elemMatch': {
